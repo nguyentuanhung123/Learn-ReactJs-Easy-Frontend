@@ -47,3 +47,31 @@ Alt + Shift + o
 # Classnames
 
 npm i classnames
+
+# Props vs State
+
+- Truyền dữ liệu từ cha xuống con: Props
+- Truyền dữ liệu giữa các component ngang hàng: để state trên component cha, rồi từ cha truyền ngược xuống component con
+- Truyền dữ liệu giữa các trang khác nhau: dùng Redux
+
+# ReactJS - Component life cycle
+
+life cycle : vòng đời
+
+Life cycle của component trong ReactJS là gì ?
+
+với component trong ReactJS, life cycle gồm 3 giai đoạn:
+
+- Được tạo ra (Mounting)
+- Qua nhiều thay đổi (Updating)
+- Và bị huỷ bỏ (Unmounting)
+
+# Không sử dụng các life cycle này nữa:
+
+- componentWillMount()
+- componentWillReceiveProps()
+
+# Component và PureComponent
+
+- Nên dùng PureComponent
+- Vì có shaloow comprasion trong hàm shouldComponentUpdate()
