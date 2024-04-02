@@ -38,3 +38,12 @@ npm install --save prop-types
 # Xoá những cái không dùng đến
 
 Alt + Shift + o
+
+# State trong ReactJS
+
+- State được tạo ra và quản lý bới component hiện tại
+- State được dùng cho những dữ liệu có khả năng thay đổi
+
+# Classnames
+
+npm i classnames
