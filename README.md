@@ -34,3 +34,7 @@ src
 # Props Types
 
 npm install --save prop-types
+
+# Xoá những cái không dùng đến
+
+Alt + Shift + o
