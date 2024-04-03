@@ -145,3 +145,43 @@ class HomePage extends PureComponent {
 - Được phép dùng
 - Khởi tạo dữ liệu cho component: gọi API, biến đổi dữ liệu, cập nhật state
 - Gửi tracking page view (GA, FacebookPixel, ...)
+
+# componentWillUnmount()
+
+- Chạy khi component bị huỷ bỏ (Component bị huỷ bỏ khi chúng ta không render nó lên màn hình hoặc khi chuyển trang)
+- Chạy đúng một lần
+- Được phép dùng
+- Clear timeout hoặc interval nếu có dùng
+- Reset dữ liệu trên redux nếu cần thiết
+
+```jsx
+class Countdown extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.DEFAULT_MAX_LENGTH = 10;
+    this.state = {
+      currentSecond: 0,
+    };
+  }
+
+  componentDidMount() {
+    this.timer = setInterval(() => {
+      this.setState((prevState) => ({
+        currentSecond: prevState.currentSecond - 1;
+      }));
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    if(this.timer) {
+      clearInterval(this.timer)
+    }
+  }
+
+  render() {
+    const {currentSecond} = this.state;
+    return <p>{currentSecond}</p>
+  }
+}
+```
