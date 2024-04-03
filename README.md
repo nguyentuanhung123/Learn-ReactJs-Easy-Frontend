@@ -74,4 +74,74 @@ với component trong ReactJS, life cycle gồm 3 giai đoạn:
 # Component và PureComponent
 
 - Nên dùng PureComponent
-- Vì có shaloow comprasion trong hàm shouldComponentUpdate()
+- Vì có shallow comprasion trong hàm shouldComponentUpdate()
+
+# constructor()
+
+- Được phép dùng
+- Nhớ có super(props)
+- Khai báo state
+- Định nghĩa properties của component
+
+```jsx
+class App extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.DEFAULT_MAX_LENGTH = 10;
+    this.state = {
+      productList: [],
+    };
+  }
+}
+```
+
+# componentDidMount()
+
+- Chạy đúng 1 một lần khi component được render
+- Tương đương với
+
+```jsx
+useEffect(() => {}, []);
+```
+
+```jsx
+class HomePage extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.DEFAULT_MAX_LENGTH = 10;
+    this.state = {
+      loading: true,
+      productList: [],
+    };
+  }
+
+  async componentDidMount() {
+    try {
+      // Send GA page view tracking
+      analytics.page("Home page");
+
+      const productList = await productApi.getAll();
+      this.setState = {
+        productList,
+        loading: false,
+      };
+    } catch (error) {
+      console.og("Failed to fetch product list: ", error);
+      this.setState({ loading: false });
+    }
+  }
+
+  render() {
+    const { loading, productList } = this.state;
+    if(loading) render <Loader />
+
+    return <ProductList productList={productList} />
+  }
+}
+```
+
+- Được phép dùng
+- Khởi tạo dữ liệu cho component: gọi API, biến đổi dữ liệu, cập nhật state
+- Gửi tracking page view (GA, FacebookPixel, ...)
