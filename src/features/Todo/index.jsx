@@ -1,76 +1,18 @@
 import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
-import TodoList from './components/TodoList';
+
+import { Link, Outlet, Route, Routes } from 'react-router-dom';
+import ListPage from './pages/ListPage';
+import DetailPage from './pages/DetailPage';
 
 const TodoFeature = (props) => {
- 
-    const initTodoList = [
-        {
-            id: 1,
-            title: 'Eat',
-            status: 'new'
-        },
-        {
-            id: 2,
-            title: 'Sleep',
-            status: 'completed'
-        },
-        {
-            id: 3,
-            title: 'Code',
-            status: 'new'
-        }
-    ]
-
-    const [todoList, setTodoList] = useState(initTodoList);
-
-    const [filteredStatus, setFilteredStatus] = useState('all');
-
-    const handleTodoClick = (todo, idx) => {
-        // clone current to the new one
-        const newTodoList = [...todoList];
-
-        console.log(todo, idx);
-
-        // toggle state
-        const newTodo = {
-            ...newTodoList[idx],
-            status: newTodoList[idx].status === 'new' ? 'completed' : 'new'
-        };
-
-        newTodoList[idx] = newTodo
-
-        //update todo list
-        setTodoList(newTodoList);
-    }
-
-
-    const handleShowAllClick = () => {
-        setFilteredStatus('all');
-    }
-
-    const handleShowCompletedClick = () => {
-        setFilteredStatus('completed');
-    }
-
-    const handleShowNewClick = () => {
-        setFilteredStatus('new');
-    }
-
-    const renderTodoList = todoList.filter((todo) => filteredStatus === 'all' || filteredStatus === todo.status);
-    // console.log(renderTodoList);
-
     return (
-        <div>
-            <h3>Todo List</h3>
-            <TodoList todoList={renderTodoList} onTodoClick={handleTodoClick}/>
-
-            <div>
-                <button onClick={handleShowAllClick}>Show All</button>
-                <button onClick={handleShowCompletedClick}>Show Completed</button>
-                <button onClick={handleShowNewClick}>Show New</button>
+        <div className='todos'>
+            <div className='todosNav'>
+                <Link to='list'>List Page</Link>
             </div>
+            <Outlet />
         </div>
     )
 }
