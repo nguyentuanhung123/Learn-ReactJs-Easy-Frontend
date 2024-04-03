@@ -239,3 +239,58 @@ class Home extends PureComponent {
   }
  }
 ```
+
+# Routing trong ReactJS
+
+- Package: react-router-dom
+- Chức năng: phục vụ cho việc routing trong ReactJS
+
+- npm i --save react-router-dom
+
+- Các component trong react-router-dom
+
+Component - Mô tả
+
+- Router: Component bao bọc tất cả các component khác của routing
+- Route: Render component khi match với path
+- Routes: Chỉ render route đầu tiên match path
+- Navigate: từ path này sang path khác
+- Link: Đi tới path tương ứng
+- NavLink: Giống như Link nhưng có thêm activeClassName
+
+Router
+
+Component Mô tả
+BrowserRouter CHÍNH - Mình sẽ dùng cái này
+HashRouter Loại routinG có dấu #
+StaticRouter Thường dùng cho SSR
+MemoryRouter Thường dùng cho testing
+
+# ReactJS: 09-03 Phân biệt Link và NavLink
+
+- Ở NavLink khi ta chọn một đường dẫn nào đó thì thẻ a sẽ có thêm một class có tên là active
+- Có thể thêm activeClassName bằng cách : activeClassName = 'active-menu'
+
+# Các hooks trong react-router-dom
+
+- useNavigate: Trả về navigate instance.
+- useLocation: Trả về Location object của Url hiện tại
+- useParams: Trả về path params object của Url hiện tại
+- useRouteMath: Trả về match object của Url hiện tại
+
+- Ghi chú
+- Dùng useNavigate() để di chuyển qua tráng khác
+- Dùng useLocation() thường xử lý URL params.
+- Dùng useParams() khi muốn xử lý path params
+- Dùng useRouteMath() khi làm nested routing
+
+- Phân biệt
+
+- Ví dụ:
+
+- Route có path: /todos/:todoId
+- User visit: /todos/123 -> Path params là { todoId: '123' }
+
+Còn URL params:
+
+- User vào đường dẫn: /todos?page=1&size=10 -> URL params là phần sau dấu chấm hỏi

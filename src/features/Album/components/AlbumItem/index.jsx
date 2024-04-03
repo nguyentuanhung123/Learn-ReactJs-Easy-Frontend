@@ -7,6 +7,8 @@ const AlbumItem = ({ album }) => {
         <div className='album'>
             <div className='album__thumbnail'>
                 <img src={album.thumbnailUrl} alt={album.name}/>
+
+                {/* Other controls */}
             </div>
             <p className='album__name'>{album.name}</p>
         </div>
