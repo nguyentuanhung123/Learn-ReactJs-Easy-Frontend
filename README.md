@@ -123,10 +123,10 @@ class HomePage extends PureComponent {
       analytics.page("Home page");
 
       const productList = await productApi.getAll();
-      this.setState = {
-        productList,
+      this.setState({
         loading: false,
-      };
+        productList
+      })
     } catch (error) {
       console.og("Failed to fetch product list: ", error);
       this.setState({ loading: false });
@@ -184,4 +184,58 @@ class Countdown extends PureComponent {
     return <p>{currentSecond}</p>
   }
 }
+```
+
+# componentDidUpdate()
+
+- Chạy mỗi khi có props hoặc state thay đổi
+- Cực kỳ hạn chế dùng
+- ADVANCED Chỉ dùng nếu muốn handle update component khi click nút back mà trên URL có query params
+
+# Lỗi can't setState() on unmounted component
+
+-> Warning: Can't call setState (or forceUpdated) on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asyncjronous tasks in the componentWillUnmount method. ...
+
+- Lý do:
+
+  - Ở trang Home, đang lấy dữ liệu API, sau đó update vào state.
+  - Nhưng ác thay, dữ liệu chưa lấy xong, user qua trang About
+  - Thế là component bị unmout.
+  - Ngay sau đó, dữ liệu từ API được trả về, và tiếp tục gọi setState()
+  - Đau lòng thay, component Home có còn đâu mà update
+
+- Giải pháp
+- Dùng một flag isComponentMounted để biết trạng thái của component
+
+```jsx
+class Home extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.isComponentMounted = false
+    this.state = {
+      currentSecond: 0,
+    };
+  }
+
+  componentDidMount() {
+
+    this.isComponentMounted = true;
+
+    try {
+      const productList = await productApi.getAll();
+
+      if(this.isComponentMounted){
+        this.setState({ productList });
+      }
+    } catch (error) {
+        console.og("Failed to fetch product list: ", error);
+        this.setState({ loading: false });
+    }
+  }
+
+  componentWillUnmount() {
+    this.isComponentMounted = false;
+  }
+ }
 ```
