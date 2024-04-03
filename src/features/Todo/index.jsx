@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
 
-import { Link, Outlet, Route, Routes } from 'react-router-dom';
+import { Link, Outlet, Route, Routes, useNavigate } from 'react-router-dom';
 import ListPage from './pages/ListPage';
 import DetailPage from './pages/DetailPage';
 
 const TodoFeature = (props) => {
+
+    const navigate = useNavigate();
+   
+    useEffect(() => {
+        // Automatically navigate to ListPage when /todos is matched
+        navigate('/todos/list');
+    }, [navigate]);
+
+
     return (
         <div className='todos'>
             <div className='todosNav'>
